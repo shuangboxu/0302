@@ -53,7 +53,7 @@
             height: 50px;
             background-color: black;
             left: 0;
-            animation: wave 1s infinite ease-in-out;
+            animation: wave 2s infinite ease-in-out;
         }
         .star {
             position: absolute;
@@ -70,9 +70,10 @@
         }
 
         @keyframes wave {
-            0% { transform: rotate(0deg); }
-            50% { transform: rotate(10deg); }
-            100% { transform: rotate(0deg); }
+        0% { transform: rotate(-10deg) translateX(5px); }  /* 向左摆动并略微向右移动 */
+        /* 50% { transform: rotate(0deg) translateX(0); }       回到原位 */
+        50% { transform: rotate(10deg) translateX(-5px); }    /* 向右摆动并略微向左移动 */
+        100% { transform: rotate(-10deg) translateX(5px); }
         }
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -80,7 +81,7 @@
         }
         @keyframes float {
             0% { transform: translateY(100vh); opacity: 0; }
-            50% { opacity: 1; }
+            40% { opacity: 1; }
             100% { transform: translateY(-10vh); opacity: 0; }
         }
     </style>
@@ -88,22 +89,56 @@
 <body>
     <h1>🎉 生日快乐！🎂</h1>
     <script>
-        const messages = [
-            "祝你健康快乐！",
-            "生日快乐，心想事成！",
-            "愿你每一天都如星光灿烂！",
-            "祝你生活幸福，笑容满面！",
-            "愿你的每个愿望都能成真！",
-            "",
-            "",
-        ];
+        const messages = [ 
+    "生日快乐，心想事成！",
+    "愿你笑口常开！",
+    "祝你健康快乐！",
+    "愿你一生平安顺遂！",
+    "青春常驻，美丽依旧！",
+    "愿你天天开心，幸福加倍！",
+    "祝你好运连连，事事顺心！",
+    "愿你被世界温柔以待！",
+    "愿你所求皆如愿！",
+    "祝你快乐无忧，幸福美满！",
+    "愿你前程似锦，未来可期！",
+    "愿你的生活充满阳光！",
+    "生日快乐，万事胜意！",
+    "愿你笑容灿烂，如花盛开！",
+    "祝你幸福安康，好运常在！",
+    "愿你活力四射，青春永驻！",
+    "祝你事业爱情双丰收！",
+    "愿你每天都有好心情！",
+    "愿你拥有无限可能！",
+    "祝你心想事成，梦想成真！",
+    "愿你岁岁常欢愉！",
+    "祝你好运爆棚，福气满满！",
+    "愿你勇敢追梦，乘风破浪！",
+    "祝你美好如初，笑靥如花！",
+    "愿你温柔且坚定！",
+    "生日快乐，幸福永远！",
+    "愿你人生充满惊喜和感动！",
+    "祝你青春靓丽，魅力四射！",
+    "愿你的生活充满爱与希望！",
+    "祝你永远幸福，永远快乐！",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+];
+
 
         function createBalloon() {
             const balloon = document.createElement("div");
             balloon.className = "balloon";
             balloon.style.left = Math.random() * window.innerWidth + "px";
             balloon.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 80%)`;
-            balloon.style.animationDuration = (Math.random() * 3 + 3) + "s";
+            balloon.style.animationDuration = (Math.random() * 4 + 6) + "s";
 
             // 随机选择一个祝福语
             const message = messages[Math.floor(Math.random() * messages.length)];
@@ -114,7 +149,7 @@
             balloon.appendChild(string);
 
             document.body.appendChild(balloon);
-            setTimeout(() => document.body.removeChild(balloon), 5000);
+            setTimeout(() => document.body.removeChild(balloon), 7000);
         }
 
         function createStar() {
