@@ -176,7 +176,6 @@
             setTimeout(() => document.body.removeChild(star), 5000);
         }
 
-
         function createBalloon2() {
             const balloon = document.createElement("div");
             balloon.className = "balloon";
@@ -189,10 +188,27 @@
             balloon.appendChild(string);
 
             balloon.addEventListener("click", function (event) {
-                explode(event.clientX, event.clientY);
+            // 随机选择一个烟花函数
+            const fireworkType = Math.floor(Math.random() * 4);  // 生成 0, 1, 2, 3 随机数
+
+            // 根据随机数调用不同的函数
+            if (fireworkType === 0) {
                 createFirework1(event.clientX, event.clientY);
-                balloon.remove();
-            });
+            } else if (fireworkType === 1) {
+                createFirework2(event.clientX, event.clientY);
+            }else if (fireworkType === 2) {
+                createFirework3(event.clientX, event.clientY);
+            } else {
+                createFirework4(event.clientX, event.clientY);
+            }
+
+            // 执行爆炸效果
+            explode(event.clientX, event.clientY);
+
+            // 删除气球
+            balloon.remove();
+        });
+
 
             document.body.appendChild(balloon);
             setTimeout(() => document.body.removeChild(balloon), 5000);
@@ -200,8 +216,9 @@
 
 
 
+
         function explode(x, y) {
-        for (let i = 0; i < 50; i++) {  // 增加爆炸粒子的数量
+    for (let i = 0; i < 50; i++) {  // 增加爆炸粒子的数量
         let particle = document.createElement("div");
         particle.className = "explosion";
         let color = `hsl(${Math.random() * 360}, 100%, 60%)`;
@@ -315,7 +332,7 @@
     }
 }
 
-    function createFirework2(x, y) {
+    function createFirework4(x, y) {
     const numParticles = 100;  // 增加粒子数量
     const spread = 2 * Math.PI;  // 360度全方向扩散
     const maxDistance = 200;  // 扩散的最大距离
@@ -377,6 +394,7 @@
         setInterval(createStar, 200); // 每200ms创建一个星星
         setInterval(createBalloon, 1000); // 每500ms创建一个气球
         setInterval(createBalloon2, 2000);
+
     </script>
 </body>
 </html>
