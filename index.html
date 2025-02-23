@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>生日快乐!</title>
+    
     <style>
          html, body {
             width: 100%;
@@ -25,6 +26,11 @@
             font-size: 3em;
             margin-top: 50px;
             animation: fadeIn 2s ease-in;
+        }
+        .time {
+            font-size: 0.8em;
+            color: rgb(83, 64, 64);
+            margin-top: 10px;
         }
         .balloon {
             position: absolute;
@@ -118,6 +124,8 @@
 </head>
 <body>
     <h1>🎉 生日快乐！🎂</h1>
+    <div class="time" id="current-time">加载中...</div> <!-- 用来显示当前时间 -->
+    <div class="greeting" id="greeting-message">加载中...</div> <!-- 用来显示问候语 -->
     <script>
         const messages = [ 
     "生日快乐，心想事成！",
@@ -154,6 +162,30 @@
     "🎂19🎂",
 ];
 
+
+function updateTime() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const timeString = `现在是${hours}:${minutes}`;
+
+            // 根据当前时间显示不同的问候语
+            let greetingMessage = '';
+            if (hours >= 0 && hours < 12) {
+                greetingMessage = '早上好！祝你有个愉快的一天！';
+            } else if (hours >= 12 && hours < 18) {
+                greetingMessage = '下午好！希望你度过一个美好的下午！';
+            } else {
+                greetingMessage = '晚上好！愿你今晚有个安静的休息！';
+            }
+
+
+            document.getElementById("current-time").textContent = timeString; // 更新显示的时间
+            document.getElementById("greeting-message").textContent = greetingMessage;
+        }
+
+        setInterval(updateTime, 60000); // 每分钟更新一次时间
+        updateTime(); // 页面加载时立即显示一次当前时间
 
         function createBalloon() {
             const balloon = document.createElement("div");
@@ -396,6 +428,9 @@
         setTimeout(() => spark.remove(), 1000);  // 延迟删除元素
     }
 }
+
+
+
 
         setInterval(createStar, 200); // 每200ms创建一个星星
         setInterval(createBalloon, 1000); // 每500ms创建一个气球
