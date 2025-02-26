@@ -123,7 +123,7 @@
     </style>
 </head>
 <body>
-    <h1>🎉 生日快乐！🎂</h1>
+    <h1 id="mainmessage">加载中...</h1>
     <div class="time" id="current-time">加载中...</div> <!-- 用来显示当前时间 -->
     <div class="greeting" id="greeting-message">加载中...</div> <!-- 用来显示问候语 -->
     <script>
@@ -163,26 +163,67 @@
 ];
 
 
-function updateTime() {
-            const now = new Date();
-            const hours = now.getHours().toString().padStart(2, '0');
-            const minutes = now.getMinutes().toString().padStart(2, '0');
-            const timeString = `现在是${hours}:${minutes}`;
+    function updateTime() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = (now.getMonth() + 1).toString().padStart(2, '0'); // 月份从0开始，所以要加1
+        const day = now.getDate().toString().padStart(2, '0');
 
-            // 根据当前时间显示不同的问候语
-            let greetingMessage = '';
-            if (hours >= 0 && hours < 12) {
-                greetingMessage = '早上好！祝你有个愉快的一天！';
-            } else if (hours >= 12 && hours < 18) {
-                greetingMessage = '下午好！希望你度过一个美好的下午！';
-            } else {
-                greetingMessage = '晚上好！愿你今晚有个安静的休息！';
-            }
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const timeString = `现在是${hours}:${minutes}`;
 
+        // 假设生日是 3 月 2 日
+        const birthdayMonth = 3; // 3 月
+        const birthdayDay = 2;   // 2 日
 
-            document.getElementById("current-time").textContent = timeString; // 更新显示的时间
-            document.getElementById("greeting-message").textContent = greetingMessage;
+        let mainmessage = '';
+        if (month == birthdayMonth && day == birthdayDay) {
+            mainmessage = '🎉 淑仪，生日快乐！🎂';
+        } else {
+            // 计算距离下一个生日的天数
+            const nextBirthday = getNextBirthday(year, birthdayMonth, birthdayDay);
+            const daysUntilBirthday = Math.ceil((nextBirthday - now) / (1000 * 60 * 60 * 24));
+            mainmessage = `距离生日还有 ${daysUntilBirthday} 天`;
         }
+
+        // 根据当前时间显示不同的问候语
+        let greetingMessage = '';
+        if (hours < 6) {
+            greetingMessage = '😴别熬夜了，早点睡吧！💤';
+        } else if (hours >= 6 && hours < 12) {
+            greetingMessage = '☀️早上好！祝你有个愉快的一天！😊';
+        } else if (hours >= 12 && hours < 18) {
+            greetingMessage = '🍃下午好！希望你度过一个美好的下午！🌷';
+        } else if (hours >= 18 && hours < 21) {
+            greetingMessage = '🌙晚上好！继续奋斗，向目标迈进！🔥';
+        } else {
+            greetingMessage = '⭐晚上好！睡个好觉！🌙';
+        }
+
+        // 更新页面内容
+        document.getElementById('mainmessage').textContent = mainmessage;
+        document.getElementById('current-time').textContent = timeString;
+        document.getElementById('greeting-message').textContent = greetingMessage;
+    }
+
+    // 获取下一个生日日期
+    function getNextBirthday(currentYear, birthdayMonth, birthdayDay) {
+        const now = new Date();
+        const thisYearBirthday = new Date(currentYear, birthdayMonth - 1, birthdayDay); // 月份从0开始
+
+        // 如果今年的生日已经过了，则计算明年的生日
+        if (now > thisYearBirthday) {
+            return new Date(currentYear + 1, birthdayMonth - 1, birthdayDay);
+        } else {
+            return thisYearBirthday;
+        }
+    }
+
+    // 初始化调用
+    updateTime();
+    // 每秒更新一次
+    setInterval(updateTime, 1000);
 
         setInterval(updateTime, 60000); // 每分钟更新一次时间
         updateTime(); // 页面加载时立即显示一次当前时间
