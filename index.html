@@ -127,7 +127,7 @@
     <div class="time" id="current-time">加载中...</div> <!-- 用来显示当前时间 -->
     <div class="greeting" id="greeting-message">加载中...</div> <!-- 用来显示问候语 -->
     <script>
-        const messages = [ 
+    const messages = [ 
     "生日快乐，心想事成！",
     "愿你笑口常开！",
     "祝你健康快乐！",
@@ -161,6 +161,49 @@
     "2025.3.2",
     "🎂19🎂",
 ];
+const messages2 = [ 
+    "每天进步一点点！",
+    "愿你事事顺心！",
+    "永远保持微笑！",
+    "加油，未来是属于你的！",
+    "愿你心想事成！",
+    "勇敢追求你的梦想！",
+    "生活永远充满希望！",
+    "努力拼搏，收获成功！",
+    "一切都会越来越好！",
+    "相信自己，无可限量！",
+    "坚持自我，成就非凡！",
+    "每天都是新开始！",
+    "愿你开心每一天！",
+    "未来一定很精彩！",
+    "你是最棒的！",
+    "坚持努力，收获幸福！",
+    "不忘初心，继续前行！",
+    "愿你充满活力！",
+    "所有努力都有回报！",
+    "一切皆有可能！",
+    "保持热情，勇敢追梦！",
+    "你的努力值得回报！",
+    "勇敢做自己！",
+    "每一天都是新的机会！",
+    "走自己的路，风景独好！",
+    "加油，未来属于勇敢者！",
+    "每天都是值得期待的日子！",
+    "用心去生活，快乐自来！",
+    "Believe in yourself, and all will be possible!",
+    "Stay strong and keep pushing forward!",
+    "Each step brings you closer to your dreams!",
+    "You are capable of amazing things!",
+    "The best is yet to come!",
+    "Success is a journey, not a destination.",
+    "Keep going, you're doing great!",
+    "Your dreams are within reach!",
+    "Believe in your potential, you’re unstoppable!",
+    "The future is bright, keep shining!",
+    "Stay positive, work hard, and make it happen!",
+    "Trust the process, great things are coming!"
+];
+
 
 
     function updateTime() {
@@ -235,9 +278,24 @@
             balloon.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 80%)`;
             balloon.style.animationDuration = (Math.random() * 4 + 6) + "s";
 
-            // 随机选择一个祝福语
-            const message = messages[Math.floor(Math.random() * messages.length)];
+
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = (now.getMonth() + 1).toString().padStart(2, '0'); // 月份从0开始，所以要加1
+            const day = now.getDate().toString().padStart(2, '0');
+
+            // 定义 message 变量，在函数外部声明
+            let message = '';
+
+            // 根据日期判断是用哪一组祝福语
+            if(month == 3 && day == 2){
+                message = messages[Math.floor(Math.random() * messages.length)];
+            } else {
+                message = messages2[Math.floor(Math.random() * messages2.length)];
+            }
+
             balloon.textContent = message;
+
 
             const string = document.createElement("div");
             string.className = "string";
