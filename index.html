@@ -463,12 +463,12 @@ const messages2 = [
             { transform: 'translate(0, 0)', opacity: 1 },  // 初始位置
             { transform: `translate(${dx}px, ${dy}px)`, opacity: 0, rotate: `${Math.random() * 360}deg` }  // 移动并旋转
         ], {
-            duration: 2000,  // 动画持续时间
+            duration: 1500,  // 动画持续时间
             easing: 'ease-out',  // 使用'缓慢出去'的动画效果
             fill: 'forwards'  // 确保动画结束后状态保持不变
         });
 
-        setTimeout(() => spark.remove(), 2000);  // 延迟删除元素
+        setTimeout(() => spark.remove(), 1500);  // 延迟删除元素
     }
 }
 
