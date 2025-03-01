@@ -425,8 +425,8 @@ const messages2 = [
     }
 }
 
-    function createFirework3(x, y) {
-    const numParticles = 60;  // 增加粒子数量
+function createFirework3(x, y) {
+    const numParticles = 70;  // 增加粒子数量
     const spread = 2 * Math.PI;  // 360度全方向扩散
     const maxDistance = 200;  // 扩散的最大距离
 
@@ -434,6 +434,11 @@ const messages2 = [
         let spark = document.createElement("div");
         spark.className = "explosion";
         
+        // 设置粒子大小
+        let particleSize = Math.random() * 8 + 8; // 让粒子大小随机在 8px - 16px 之间
+        spark.style.width = `${particleSize}px`;
+        spark.style.height = `${particleSize}px`;
+
         // 随机颜色
         let color = `hsl(${Math.random() * 360}, 100%, 70%)`;
         spark.style.backgroundColor = color;
@@ -453,8 +458,8 @@ const messages2 = [
         let dx = Math.cos(angle) * distance * speed;  // 计算X轴偏移量
         let dy = Math.sin(angle) * distance * speed;  // 计算Y轴偏移量
 
-        spark.style.top = (y - 10) + "px";  // 初始位置在鼠标点击的Y坐标
-        spark.style.left = (x - 10) + "px"; // 初始位置在鼠标点击的X坐标
+        spark.style.top = (y - particleSize / 2) + "px";  // 初始位置在鼠标点击的Y坐标
+        spark.style.left = (x - particleSize / 2) + "px"; // 初始位置在鼠标点击的X坐标
 
         document.body.appendChild(spark);
 
@@ -471,9 +476,6 @@ const messages2 = [
         setTimeout(() => spark.remove(), 1500);  // 延迟删除元素
     }
 }
-
-
-
 
         setInterval(createStar, 200); // 每200ms创建一个星星
         setInterval(createBalloon, 1000); // 每500ms创建一个气球
