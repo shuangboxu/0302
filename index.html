@@ -219,11 +219,11 @@ const messages2 = [
 
         // 假设生日是 3 月 2 日
         const birthdayMonth = 3; // 3 月
-        const birthdayDay = 2;   // 2 日
+        const birthdayDay = 1;   // 2 日
 
         let mainmessage = '';
         if (month == birthdayMonth && day == birthdayDay) {
-            mainmessage = '🎉 淑仪 生日快乐！🎂';
+            mainmessage = '淑仪<br> &nbsp;🎉生日快乐!🎂';
         } else {
             // 计算距离下一个生日的天数
             const nextBirthday = getNextBirthday(year, birthdayMonth, birthdayDay);
@@ -246,7 +246,7 @@ const messages2 = [
         }
 
         // 更新页面内容
-        document.getElementById('mainmessage').textContent = mainmessage;
+        document.getElementById('mainmessage').innerHTML = mainmessage;
         document.getElementById('current-time').textContent = timeString;
         document.getElementById('greeting-message').textContent = greetingMessage;
     }
@@ -400,12 +400,12 @@ const messages2 = [
             { transform: 'translate(0, 0)', opacity: 1 },  // 初始位置
             { transform: `translate(${dx}px, ${dy}px)`, opacity: 0 }  // 移动到新位置并消失
         ], {
-            duration: 1300,  // 动画持续时间
+            duration: 1000,  // 动画持续时间
             easing: 'ease-out',  // 使用'缓慢出去'的动画效果
             fill: 'forwards'  // 确保动画结束后状态保持不变
         });
 
-        setTimeout(() => spark.remove(), 1300);  // 延迟删除元素
+        setTimeout(() => spark.remove(), 1000);  // 延迟删除元素
     }
 }
 
@@ -422,7 +422,7 @@ const messages2 = [
         spark.style.left = (x + Math.cos(angle) * distance) + "px";
 
         document.body.appendChild(spark);
-        setTimeout(() => spark.remove(), 1300);
+        setTimeout(() => spark.remove(), 1000);
     }
 }
 
@@ -464,12 +464,12 @@ const messages2 = [
             { transform: 'translate(0, 0)', opacity: 1 },  // 初始位置
             { transform: `translate(${dx}px, ${dy}px)`, opacity: 0, rotate: `${Math.random() * 360}deg` }  // 移动并旋转
         ], {
-            duration: 1300,  // 动画持续时间
+            duration: 1000,  // 动画持续时间
             easing: 'ease-out',  // 使用'缓慢出去'的动画效果
             fill: 'forwards'  // 确保动画结束后状态保持不变
         });
 
-        setTimeout(() => spark.remove(), 1300);  // 延迟删除元素
+        setTimeout(() => spark.remove(), 1000);  // 延迟删除元素
     }
 }
 
@@ -520,12 +520,12 @@ const messages2 = [
             { transform: 'translate(0, 0)', opacity: 1 },  // 初始位置
             { transform: `translate(${dx}px, ${dy}px)`, opacity: 0, rotate: `${Math.random() * 360}deg` }  // 移动并旋转
         ], {
-            duration: 1300,  // 动画持续时间
+            duration: 1000,  // 动画持续时间
             easing: 'ease-out',  // 使用'缓慢出去'的动画效果
             fill: 'forwards'  // 确保动画结束后状态保持不变
         });
 
-        setTimeout(() => spark.remove(), 1300);  // 延迟删除元素
+        setTimeout(() => spark.remove(), 1000);  // 延迟删除元素
     }
 }
 
