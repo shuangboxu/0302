@@ -217,6 +217,7 @@ const messages2 = [
         const minutes = now.getMinutes().toString().padStart(2, '0');
         const timeString = `现在是${hours}:${minutes}`;
 
+        // 假设生日是 3 月 2 日
         const birthdayMonth = 3; // 3 月
         const birthdayDay = 2;   // 2 日
 
@@ -339,7 +340,7 @@ const messages2 = [
             }else if (fireworkType === 2) {
                 createFirework3(event.clientX, event.clientY);
             } else {
-                createFirework3(event.clientX, event.clientY);
+                createFirework4(event.clientX, event.clientY);
             }
 
             // 执行爆炸效果
@@ -425,8 +426,8 @@ const messages2 = [
     }
 }
 
-function createFirework3(x, y) {
-    const numParticles = 50;  // 增加粒子数量
+    function createFirework3(x, y) {
+    const numParticles = 100;  // 增加粒子数量
     const spread = 2 * Math.PI;  // 360度全方向扩散
     const maxDistance = 200;  // 扩散的最大距离
 
@@ -434,11 +435,6 @@ function createFirework3(x, y) {
         let spark = document.createElement("div");
         spark.className = "explosion";
         
-        // 设置粒子大小
-        let particleSize = Math.random() * 8 + 8; // 让粒子大小随机在 8px - 16px 之间
-        spark.style.width = `${particleSize}px`;
-        spark.style.height = `${particleSize}px`;
-
         // 随机颜色
         let color = `hsl(${Math.random() * 360}, 100%, 70%)`;
         spark.style.backgroundColor = color;
@@ -458,8 +454,8 @@ function createFirework3(x, y) {
         let dx = Math.cos(angle) * distance * speed;  // 计算X轴偏移量
         let dy = Math.sin(angle) * distance * speed;  // 计算Y轴偏移量
 
-        spark.style.top = (y - particleSize / 2) + "px";  // 初始位置在鼠标点击的Y坐标
-        spark.style.left = (x - particleSize / 2) + "px"; // 初始位置在鼠标点击的X坐标
+        spark.style.top = (y - 10) + "px";  // 初始位置在鼠标点击的Y坐标
+        spark.style.left = (x - 10) + "px"; // 初始位置在鼠标点击的X坐标
 
         document.body.appendChild(spark);
 
@@ -468,14 +464,73 @@ function createFirework3(x, y) {
             { transform: 'translate(0, 0)', opacity: 1 },  // 初始位置
             { transform: `translate(${dx}px, ${dy}px)`, opacity: 0, rotate: `${Math.random() * 360}deg` }  // 移动并旋转
         ], {
-            duration: 1500,  // 动画持续时间
+            duration: 1000,  // 动画持续时间
             easing: 'ease-out',  // 使用'缓慢出去'的动画效果
             fill: 'forwards'  // 确保动画结束后状态保持不变
         });
 
-        setTimeout(() => spark.remove(), 1500);  // 延迟删除元素
+        setTimeout(() => spark.remove(), 1000);  // 延迟删除元素
     }
 }
+
+    function createFirework4(x, y) {
+    const numParticles = 100;  // 增加粒子数量
+    const spread = 2 * Math.PI;  // 360度全方向扩散
+    const maxDistance = 200;  // 扩散的最大距离
+
+    for (let i = 0; i < numParticles; i++) {
+        let spark = document.createElement("div");
+        spark.className = "explosion";
+        
+        // 随机颜色
+        let color = `hsl(${Math.random() * 360}, 100%, 70%)`;
+        spark.style.backgroundColor = color;
+
+        // 随机选择粒子形状：矩形、三角形、六边形
+        let shapeType = Math.floor(Math.random() * 3);  // 0 = 矩形, 1 = 三角形, 2 = 六边形
+        if (shapeType === 0) {
+            spark.style.width = "10px";
+            spark.style.height = "20px";
+        } else if (shapeType === 1) {
+            spark.style.width = "0";
+            spark.style.height = "0";
+            spark.style.borderLeft = "10px solid transparent";
+            spark.style.borderRight = "10px solid transparent";
+            spark.style.borderBottom = "20px solid " + color;  // 创建三角形
+        } else {
+            spark.style.width = "20px";
+            spark.style.height = "20px";
+            spark.style.clipPath = "polygon(50% 0%, 100% 25%, 80% 100%, 20% 100%, 0% 25%)";  // 六边形形状
+        }
+
+        let angle = Math.random() * spread;  // 让角度均匀分布在 0 - 360 度之间
+        let distance = Math.random() * maxDistance + 50;  // 设置烟花的扩散距离
+        let speed = Math.random() * 0.5 + 0.5;  // 设置速度，确保烟花运动更自然
+
+        let dx = Math.cos(angle) * distance * speed;  // 计算X轴偏移量
+        let dy = Math.sin(angle) * distance * speed;  // 计算Y轴偏移量
+
+        spark.style.top = (y - 10) + "px";  // 初始位置在鼠标点击的Y坐标
+        spark.style.left = (x - 10) + "px"; // 初始位置在鼠标点击的X坐标
+
+        document.body.appendChild(spark);
+
+        // 通过动画来控制粒子的移动
+        spark.animate([
+            { transform: 'translate(0, 0)', opacity: 1 },  // 初始位置
+            { transform: `translate(${dx}px, ${dy}px)`, opacity: 0, rotate: `${Math.random() * 360}deg` }  // 移动并旋转
+        ], {
+            duration: 1000,  // 动画持续时间
+            easing: 'ease-out',  // 使用'缓慢出去'的动画效果
+            fill: 'forwards'  // 确保动画结束后状态保持不变
+        });
+
+        setTimeout(() => spark.remove(), 1000);  // 延迟删除元素
+    }
+}
+
+
+
 
         setInterval(createStar, 200); // 每200ms创建一个星星
         setInterval(createBalloon, 1000); // 每500ms创建一个气球
